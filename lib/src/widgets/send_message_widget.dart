@@ -70,19 +70,15 @@ class SendMessageWidget extends StatefulWidget {
 
 class SendMessageWidgetState extends State<SendMessageWidget> {
   final _textEditingController = TextEditingController();
-  final ValueNotifier<ReplyMessage> _replyMessage =
-      ValueNotifier(const ReplyMessage());
+  final ValueNotifier<ReplyMessage> _replyMessage = ValueNotifier(const ReplyMessage());
 
   ReplyMessage get replyMessage => _replyMessage.value;
   final _focusNode = FocusNode();
 
-  ChatUser? get repliedUser => replyMessage.replyTo.isNotEmpty
-      ? widget.chatController.getUserFromId(replyMessage.replyTo)
-      : null;
+  ChatUser? get repliedUser =>
+      replyMessage.replyTo.isNotEmpty ? widget.chatController.getUserFromId(replyMessage.replyTo) : null;
 
-  String get _replyTo => replyMessage.replyTo == currentUser?.id
-      ? PackageStrings.you
-      : repliedUser?.name ?? '';
+  String get _replyTo => replyMessage.replyTo == currentUser?.id ? PackageStrings.you : repliedUser?.name ?? '';
 
   ChatUser? currentUser;
 
@@ -96,7 +92,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final replyTitle = "${PackageStrings.replyTo} $_replyTo";
+    // final replyTitle = _replyTo;
     return widget.sendMessageBuilder != null
         ? Positioned(
             right: 0,
@@ -115,8 +111,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                     left: 0,
                     bottom: 0,
                     child: Container(
-                      height: MediaQuery.of(context).size.height /
-                          ((!kIsWeb && Platform.isIOS) ? 24 : 28),
+                      height: MediaQuery.of(context).size.height / ((!kIsWeb && Platform.isIOS) ? 24 : 28),
                       color: widget.backgroundColor ?? Colors.white,
                     ),
                   ),
@@ -135,9 +130,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                             if (state.message.isNotEmpty) {
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: widget.sendMessageConfig
-                                          ?.textFieldBackgroundColor ??
-                                      Colors.white,
+                                  color: widget.sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
                                   borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(14),
                                   ),
@@ -160,60 +153,65 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                                     horizontal: 6,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: widget.sendMessageConfig
-                                            ?.replyDialogColor ??
-                                        Colors.grey.shade200,
+                                    color: widget.sendMessageConfig?.replyDialogColor ?? Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            replyTitle,
-                                            style: TextStyle(
-                                              color: widget.sendMessageConfig
-                                                      ?.replyTitleColor ??
-                                                  Colors.deepPurple,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 0.25,
-                                            ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _replyTo,
+                                                style: widget.sendMessageConfig?.replyTitleTextStyle ??
+                                                    const TextStyle(
+                                                      color: Colors.deepPurple,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14,
+                                                    ),
+                                              ),
+                                              if (state.messageType.isVoice)
+                                                _voiceReplyMessageView
+                                              else if (state.messageType.isImage)
+                                                _imageReplyMessageView
+                                              else
+                                                Text(
+                                                  state.message,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: widget.sendMessageConfig?.replyMessageTextStyle ??
+                                                      const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.black,
+                                                      ),
+                                                ),
+                                            ],
                                           ),
-                                          IconButton(
-                                            constraints: const BoxConstraints(),
-                                            padding: EdgeInsets.zero,
-                                            icon: Icon(
-                                              Icons.close,
-                                              color: widget.sendMessageConfig
-                                                      ?.closeIconColor ??
-                                                  Colors.black,
-                                              size: 16,
+                                          Container(
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: widget.sendMessageConfig?.closeIconColor ?? Colors.black,
+                                                  width: 2),
+                                              shape: BoxShape.circle,
                                             ),
-                                            onPressed: _onCloseTap,
+                                            child: IconButton(
+                                              padding: EdgeInsets.zero,
+                                              icon: Icon(
+                                                Icons.close,
+                                                color: widget.sendMessageConfig?.closeIconColor ?? Colors.black,
+                                                size: 20,
+                                              ),
+                                              onPressed: _onCloseTap,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      if (state.messageType.isVoice)
-                                        _voiceReplyMessageView
-                                      else if (state.messageType.isImage)
-                                        _imageReplyMessageView
-                                      else
-                                        Text(
-                                          state.message,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: widget.sendMessageConfig
-                                                    ?.replyMessageColor ??
-                                                Colors.black,
-                                          ),
-                                        ),
                                     ],
                                   ),
                                 ),
@@ -252,32 +250,27 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
         if (replyMessage.voiceMessageDuration != null)
           Text(
             replyMessage.voiceMessageDuration!.toHHMMSS(),
-            style: TextStyle(
-              fontSize: 12,
-              color:
-                  widget.sendMessageConfig?.replyMessageColor ?? Colors.black,
-            ),
+            style: widget.sendMessageConfig?.replyMessageTextStyle ??
+                const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
           ),
       ],
     );
   }
 
   Widget get _imageReplyMessageView {
-    return Row(
-      children: [
-        Icon(
-          Icons.photo,
-          size: 20,
-          color: widget.sendMessageConfig?.replyMessageColor ??
-              Colors.grey.shade700,
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(_replyMessage.value.message),
+          fit: BoxFit.fill,
         ),
-        Text(
-          PackageStrings.photo,
-          style: TextStyle(
-            color: widget.sendMessageConfig?.replyMessageColor ?? Colors.black,
-          ),
-        ),
-      ],
+        borderRadius: BorderRadius.circular(5),
+      ),
     );
   }
 
@@ -303,8 +296,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
   }
 
   void _onPressed() {
-    if (_textEditingController.text.isNotEmpty &&
-        !_textEditingController.text.startsWith('\n')) {
+    if (_textEditingController.text.isNotEmpty && !_textEditingController.text.startsWith('\n')) {
       widget.onSendTap.call(
         _textEditingController.text.trim(),
         replyMessage,

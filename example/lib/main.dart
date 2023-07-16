@@ -17,8 +17,7 @@ class Example extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xffEE5366),
-        colorScheme:
-            ColorScheme.fromSwatch(accentColor: const Color(0xffEE5366)),
+        colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xffEE5366)),
       ),
       home: const ChatScreen(),
     );
@@ -78,9 +77,8 @@ class _ChatScreenState extends State<ChatScreen> {
         currentUser: currentUser,
         chatController: _chatController,
         onSendTap: _onSendTap,
-        featureActiveConfig: const FeatureActiveConfig(
-            lastSeenAgoBuilderVisibility: true,
-            receiptsBuilderVisibility: true),
+        featureActiveConfig:
+            const FeatureActiveConfig(lastSeenAgoBuilderVisibility: true, receiptsBuilderVisibility: true),
         chatViewState: ChatViewState.hasMessages,
         chatViewStateConfig: ChatViewStateConfiguration(
           loadingWidgetConfig: ChatViewStateWidgetConfiguration(
@@ -110,9 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
             IconButton(
               onPressed: _onThemeIconTap,
               icon: Icon(
-                isDarkTheme
-                    ? Icons.brightness_4_outlined
-                    : Icons.dark_mode_outlined,
+                isDarkTheme ? Icons.brightness_4_outlined : Icons.dark_mode_outlined,
                 color: theme.themeIconColor,
               ),
             ),
@@ -142,10 +138,8 @@ class _ChatScreenState extends State<ChatScreen> {
             cameraIconColor: theme.cameraIconColor,
             galleryIconColor: theme.galleryIconColor,
           ),
-          replyMessageColor: theme.replyMessageColor,
           defaultSendButtonColor: theme.sendButtonColor,
           replyDialogColor: theme.replyDialogColor,
-          replyTitleColor: theme.replyTitleColor,
           textFieldBackgroundColor: theme.textFieldBackgroundColor,
           closeIconColor: theme.closeIconColor,
           textFieldConfig: TextFieldConfiguration(
@@ -174,8 +168,7 @@ class _ChatScreenState extends State<ChatScreen> {
               bodyStyle: theme.outgoingChatLinkBodyStyle,
               titleStyle: theme.outgoingChatLinkTitleStyle,
             ),
-            receiptsWidgetConfig:
-                const ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
+            receiptsWidgetConfig: const ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
             color: theme.outgoingChatBubbleColor,
           ),
           inComingChatBubbleConfig: ChatBubble(
@@ -193,8 +186,7 @@ class _ChatScreenState extends State<ChatScreen> {
               /// send your message reciepts to the other client
               debugPrint('Message Read');
             },
-            senderNameTextStyle:
-                TextStyle(color: theme.inComingChatBubbleTextColor),
+            senderNameTextStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
             color: theme.inComingChatBubbleColor,
           ),
         ),
@@ -214,10 +206,8 @@ class _ChatScreenState extends State<ChatScreen> {
           messageReactionConfig: MessageReactionConfiguration(
             backgroundColor: theme.messageReactionBackGroundColor,
             borderColor: theme.messageReactionBackGroundColor,
-            reactedUserCountTextStyle:
-                TextStyle(color: theme.inComingChatBubbleTextColor),
-            reactionCountTextStyle:
-                TextStyle(color: theme.inComingChatBubbleTextColor),
+            reactedUserCountTextStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
+            reactionCountTextStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
             reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
               backgroundColor: theme.backgroundColor,
               reactedUserTextStyle: TextStyle(
@@ -286,8 +276,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
     Future.delayed(const Duration(milliseconds: 300), () {
-      _chatController.initialMessageList.last.setStatus =
-          MessageStatus.undelivered;
+      _chatController.initialMessageList.last.setStatus = MessageStatus.undelivered;
     });
     Future.delayed(const Duration(seconds: 1), () {
       _chatController.initialMessageList.last.setStatus = MessageStatus.read;
