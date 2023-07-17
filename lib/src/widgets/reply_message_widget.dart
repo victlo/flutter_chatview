@@ -92,70 +92,66 @@ class ReplyMessageWidget extends StatelessWidget {
                       textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
                 ),
                 const SizedBox(height: 3),
-                IntrinsicHeight(
-                  child: Flexible(
-                    child: Opacity(
-                      opacity: repliedMessageConfig?.opacity ?? 0.8,
-                      child: message.replyMessage.messageType.isImage
-                          ? Container(
-                              height: repliedMessageConfig?.repliedImageMessageHeight ?? 100,
-                              width: repliedMessageConfig?.repliedImageMessageWidth ?? 80,
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: (() {
-                                    return Image.network(
-                                      replyMessage,
-                                      fit: BoxFit.fitHeight,
-                                      loadingBuilder: (context, child, loadingProgress) {
-                                        if (loadingProgress == null) return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                    loadingProgress.expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
+                Opacity(
+                  opacity: repliedMessageConfig?.opacity ?? 0.8,
+                  child: message.replyMessage.messageType.isImage
+                      ? SizedBox(
+                          height: repliedMessageConfig?.repliedImageMessageHeight ?? 50,
+                          width: repliedMessageConfig?.repliedImageMessageWidth ?? 50,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: (() {
+                                return Image.network(
+                                  replyMessage,
+                                  fit: BoxFit.fitHeight,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded /
+                                                loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
                                     );
-                                  }())),
-                            )
-                          : Container(
-                              constraints: BoxConstraints(
-                                maxWidth: repliedMessageConfig?.maxWidth ?? 280,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: _borderRadius(
-                                  replyMessage: replyMessage,
-                                  replyBySender: replyBySender,
-                                ),
-                                color: repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
-                              ),
-                              child: message.replyMessage.messageType.isVoice
-                                  ? Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Icons.mic,
-                                          color: repliedMessageConfig?.micIconColor ?? Colors.white,
-                                        ),
-                                        const SizedBox(width: 2),
-                                        if (message.replyMessage.voiceMessageDuration != null)
-                                          Text(
-                                            message.replyMessage.voiceMessageDuration!.toHHMMSS(),
-                                            style: repliedMessageConfig?.textStyle,
-                                          ),
-                                      ],
-                                    )
-                                  : Text(
-                                      replyMessage,
-                                      style: repliedMessageConfig?.textStyle ??
-                                          textTheme.bodyMedium!.copyWith(color: Colors.black),
-                                    ),
+                                  },
+                                );
+                              }())),
+                        )
+                      : Container(
+                          constraints: BoxConstraints(
+                            maxWidth: repliedMessageConfig?.maxWidth ?? 280,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: _borderRadius(
+                              replyMessage: replyMessage,
+                              replyBySender: replyBySender,
                             ),
-                    ),
-                  ),
+                            color: repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
+                          ),
+                          child: message.replyMessage.messageType.isVoice
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.mic,
+                                      color: repliedMessageConfig?.micIconColor ?? Colors.white,
+                                    ),
+                                    const SizedBox(width: 2),
+                                    if (message.replyMessage.voiceMessageDuration != null)
+                                      Text(
+                                        message.replyMessage.voiceMessageDuration!.toHHMMSS(),
+                                        style: repliedMessageConfig?.textStyle,
+                                      ),
+                                  ],
+                                )
+                              : Text(
+                                  replyMessage,
+                                  style: repliedMessageConfig?.textStyle ??
+                                      textTheme.bodyMedium!.copyWith(color: Colors.black),
+                                ),
+                        ),
                 ),
               ],
             ),

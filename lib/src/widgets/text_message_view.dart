@@ -80,9 +80,12 @@ class TextMessageView extends StatelessWidget {
             borderRadius: _borderRadius(textMessage),
           ),
           child: textMessage.isUrl
-              ? LinkPreview(
-                  linkPreviewConfig: _linkPreviewConfig,
-                  url: textMessage,
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: LinkPreview(
+                    linkPreviewConfig: _linkPreviewConfig,
+                    url: textMessage,
+                  ),
                 )
               : Text(
                   textMessage,
