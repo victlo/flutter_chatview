@@ -49,7 +49,10 @@ class ChatBubbleConfiguration {
 
   final ReceiptsWidgetConfig? receiptsWidgetConfig;
 
+  final Widget? readMessageIcon;
+
   const ChatBubbleConfiguration({
+    this.readMessageIcon,
     this.padding,
     this.margin,
     this.maxWidth,

@@ -29,8 +29,7 @@ import '../../widgets/chat_message_sending_to_sent_animation.dart';
 const String enUS = "en_US";
 const String emojiRegExpression =
     r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])';
-const String imageUrlRegExpression =
-    r'(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)';
+const String imageUrlRegExpression = r'(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)';
 const String dateFormat = "yyyy-MM-dd";
 const String jpg = ".jpg";
 const String png = ".png";
@@ -54,7 +53,7 @@ const int opacity = 18;
 const double verticalPadding = 4.0;
 const double leftPadding2 = 5;
 const double horizontalPadding = 6;
-const double replyBorderRadius1 = 30;
+const double replyBorderRadius1 = 10;
 const double replyBorderRadius2 = 18;
 const double leftPadding3 = 12;
 const double textFieldBorderRadius = 27;
@@ -77,12 +76,14 @@ Widget sendMessageAnimationBuilder(MessageStatus status) {
 
 /// Default builder when the message has got seen as of now
 /// is visible at the bottom of the chat bubble
-Widget lastSeenAgoBuilder(Message message, String formattedDate) {
+Widget lastSeenAgoBuilder(Widget? readMessageIcon) {
   return Padding(
     padding: const EdgeInsets.all(2),
-    child: Text(
-      'Seen ${applicationDateFormatter(message.createdAt)}    ',
-      style: const TextStyle(color: Colors.grey, fontSize: 12),
-    ),
+    child: readMessageIcon ??
+        const Icon(
+          Icons.remove_red_eye_outlined,
+          color: Colors.grey,
+          size: 20,
+        ),
   );
 }

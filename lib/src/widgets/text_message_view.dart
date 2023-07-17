@@ -32,6 +32,7 @@ class TextMessageView extends StatelessWidget {
     Key? key,
     required this.isMessageBySender,
     required this.message,
+    required this.hasReplyMessage,
     this.chatBubbleMaxWidth,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
@@ -39,6 +40,8 @@ class TextMessageView extends StatelessWidget {
     this.highlightMessage = false,
     this.highlightColor,
   }) : super(key: key);
+
+  final bool hasReplyMessage;
 
   /// Represents current message is sent by current user.
   final bool isMessageBySender;
@@ -68,32 +71,46 @@ class TextMessageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final textMessage = message.message;
+    final double leftPadding = hasReplyMessage ? 0 : 8;
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Container(
           constraints: BoxConstraints(maxWidth: chatBubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.75),
-          padding: _padding ?? const EdgeInsets.all(10),
-          margin: _margin ?? EdgeInsets.fromLTRB(0, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
-          decoration: BoxDecoration(
-            color: highlightMessage ? highlightColor : _color,
-            borderRadius: _borderRadius(textMessage),
-          ),
+          padding:
+              _padding ?? (textMessage.isUrl ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding, 5) : EdgeInsets.all(0)),
           child: textMessage.isUrl
-              ? SizedBox(
+              ? Container(
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
+                  decoration: BoxDecoration(
+                    color: highlightMessage ? highlightColor : _color,
+                    borderRadius: _borderRadius(textMessage),
+                  ),
+                  padding: const EdgeInsets.all(3),
                   width: MediaQuery.of(context).size.width / 2,
                   child: LinkPreview(
                     linkPreviewConfig: _linkPreviewConfig,
                     url: textMessage,
                   ),
                 )
-              : Text(
-                  textMessage,
-                  style: _textStyle ??
-                      textTheme.bodyMedium!.copyWith(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+              : Container(
+                  padding: _padding ??
+                      (textMessage.isUrl
+                          ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding, 5)
+                          : EdgeInsets.fromLTRB(leftPadding, 8, leftPadding, 8)),
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
+                  decoration: BoxDecoration(
+                    color: highlightMessage ? highlightColor : _color,
+                    borderRadius: _borderRadius(textMessage),
+                  ),
+                  child: Text(
+                    textMessage,
+                    style: _textStyle ??
+                        textTheme.bodyMedium!.copyWith(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                  ),
                 ),
         ),
         if (message.reaction.reactions.isNotEmpty)

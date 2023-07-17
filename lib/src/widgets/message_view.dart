@@ -36,6 +36,7 @@ class MessageView extends StatefulWidget {
     required this.isMessageBySender,
     required this.onLongPress,
     required this.isLongPressEnable,
+    required this.hasReplyMessage,
     this.chatBubbleMaxWidth,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
@@ -48,6 +49,8 @@ class MessageView extends StatefulWidget {
     this.onMaxDuration,
     this.controller,
   }) : super(key: key);
+
+  final bool hasReplyMessage;
 
   /// Provides message instance of chat.
   final Message message;
@@ -158,7 +161,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
         bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           (() {
                 if (message.isAllEmoji) {
@@ -200,6 +203,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                   );
                 } else if (widget.message.messageType.isText) {
                   return TextMessageView(
+                    hasReplyMessage : widget.hasReplyMessage,
                     inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
                     outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
                     isMessageBySender: widget.isMessageBySender,

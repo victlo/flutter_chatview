@@ -41,7 +41,7 @@ enum MessageStatus { read, delivered, undelivered, pending }
 /// Types of states
 enum ChatViewState { hasMessages, noData, loading, error }
 
-enum ShowReceiptsIn { all, lastMessage }
+enum ShowReceiptsIn { all, lastMessage, none }
 
 extension ChatViewStateExtension on ChatViewState {
   bool get hasMessages => this == ChatViewState.hasMessages;
