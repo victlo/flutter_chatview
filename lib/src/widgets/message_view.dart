@@ -21,7 +21,6 @@
  */
 import 'package:chatview/chatview.dart';
 import 'package:chatview/src/extensions/extensions.dart';
-import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constants/constants.dart';
@@ -226,22 +225,22 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                 }
               }()) ??
               const SizedBox(),
-          ValueListenableBuilder(
-            valueListenable: widget.message.statusNotifier,
-            builder: (context, value, child) {
-              if (widget.isMessageBySender &&
-                  widget.controller?.initialMessageList.last.id == widget.message.id &&
-                  widget.message.status == MessageStatus.read) {
-                if (ChatViewInheritedWidget.of(context)?.featureActiveConfig.lastSeenAgoBuilderVisibility ?? true) {
-                  return widget.outgoingChatBubbleConfig?.receiptsWidgetConfig?.lastSeenAgoBuilder
-                          ?.call(widget.message, applicationDateFormatter(widget.message.createdAt)) ??
-                      lastSeenAgoBuilder(widget.message, applicationDateFormatter(widget.message.createdAt));
-                }
-                return const SizedBox();
-              }
-              return const SizedBox();
-            },
-          )
+          // ValueListenableBuilder(
+          //   valueListenable: widget.message.statusNotifier,
+          //   builder: (context, value, child) {
+          //     if (widget.isMessageBySender &&
+          //         widget.controller?.initialMessageList.last.id == widget.message.id &&
+          //         widget.message.status == MessageStatus.read) {
+          //       if (ChatViewInheritedWidget.of(context)?.featureActiveConfig.lastSeenAgoBuilderVisibility ?? true) {
+          //         return widget.outgoingChatBubbleConfig?.receiptsWidgetConfig?.lastSeenAgoBuilder
+          //                 ?.call(widget.message, applicationDateFormatter(widget.message.createdAt)) ??
+          //             lastSeenAgoBuilder(widget.message, applicationDateFormatter(widget.message.createdAt));
+          //       }
+          //       return const SizedBox();
+          //     }
+          //     return const SizedBox();
+          //   },
+          // )
         ],
       ),
     );

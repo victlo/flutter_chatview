@@ -59,97 +59,106 @@ class ReplyMessageWidget extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(
-          left: 8.0,
-          top: 8,
-          right: 8,
+          left: 4,
+          top: 4,
+          right: 4,
         ),
         child: Container(
+          padding: EdgeInsets.only(left: repliedMessageConfig?.verticalBarWidth ?? 4),
           decoration: BoxDecoration(
-            color: repliedMessageConfig?.backgroundColor,
-            /*** The BorderRadius widget  is here ***/
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ), //BorderRadius.all
-          ), //BoxDeco
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "$replyBy",
-                style: repliedMessageConfig?.replyTitleTextStyle ??
-                    textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
-              ),
-              const SizedBox(height: 3),
-              IntrinsicHeight(
-                child: Flexible(
-                  child: Opacity(
-                    opacity: repliedMessageConfig?.opacity ?? 0.8,
-                    child: message.replyMessage.messageType.isImage
-                        ? Container(
-                            height: repliedMessageConfig?.repliedImageMessageHeight ?? 100,
-                            width: repliedMessageConfig?.repliedImageMessageWidth ?? 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(14),
-                                child: (() {
-                                  return Image.network(
-                                    replyMessage,
-                                    fit: BoxFit.fitHeight,
-                                    loadingBuilder: (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress.expectedTotalBytes != null
-                                              ? loadingProgress.cumulativeBytesLoaded /
-                                                  loadingProgress.expectedTotalBytes!
-                                              : null,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }())),
-                          )
-                        : Container(
-                            constraints: BoxConstraints(
-                              maxWidth: repliedMessageConfig?.maxWidth ?? 280,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: _borderRadius(
-                                replyMessage: replyMessage,
-                                replyBySender: replyBySender,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(10),
+              bottom: Radius.circular(3),
+            ), //
+            color: repliedMessageConfig?.verticalBarColor ?? Colors.white,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: repliedMessageConfig?.backgroundColor,
+              /*** The BorderRadius widget  is here ***/
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(3),
+              ), //BorderRad
+              // ius.all
+            ), //BoxDeco
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "$replyBy",
+                  style: repliedMessageConfig?.replyTitleTextStyle ??
+                      textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
+                ),
+                const SizedBox(height: 3),
+                IntrinsicHeight(
+                  child: Flexible(
+                    child: Opacity(
+                      opacity: repliedMessageConfig?.opacity ?? 0.8,
+                      child: message.replyMessage.messageType.isImage
+                          ? Container(
+                              height: repliedMessageConfig?.repliedImageMessageHeight ?? 100,
+                              width: repliedMessageConfig?.repliedImageMessageWidth ?? 80,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: (() {
+                                    return Image.network(
+                                      replyMessage,
+                                      fit: BoxFit.fitHeight,
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress.expectedTotalBytes != null
+                                                ? loadingProgress.cumulativeBytesLoaded /
+                                                    loadingProgress.expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }())),
+                            )
+                          : Container(
+                              constraints: BoxConstraints(
+                                maxWidth: repliedMessageConfig?.maxWidth ?? 280,
                               ),
-                              color: repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
-                            ),
-                            child: message.replyMessage.messageType.isVoice
-                                ? Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.mic,
-                                        color: repliedMessageConfig?.micIconColor ?? Colors.white,
-                                      ),
-                                      const SizedBox(width: 2),
-                                      if (message.replyMessage.voiceMessageDuration != null)
-                                        Text(
-                                          message.replyMessage.voiceMessageDuration!.toHHMMSS(),
-                                          style: repliedMessageConfig?.textStyle,
+                              decoration: BoxDecoration(
+                                borderRadius: _borderRadius(
+                                  replyMessage: replyMessage,
+                                  replyBySender: replyBySender,
+                                ),
+                                color: repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
+                              ),
+                              child: message.replyMessage.messageType.isVoice
+                                  ? Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.mic,
+                                          color: repliedMessageConfig?.micIconColor ?? Colors.white,
                                         ),
-                                    ],
-                                  )
-                                : Text(
-                                    replyMessage,
-                                    style: repliedMessageConfig?.textStyle ??
-                                        textTheme.bodyMedium!.copyWith(color: Colors.black),
-                                  ),
-                          ),
+                                        const SizedBox(width: 2),
+                                        if (message.replyMessage.voiceMessageDuration != null)
+                                          Text(
+                                            message.replyMessage.voiceMessageDuration!.toHHMMSS(),
+                                            style: repliedMessageConfig?.textStyle,
+                                          ),
+                                      ],
+                                    )
+                                  : Text(
+                                      replyMessage,
+                                      style: repliedMessageConfig?.textStyle ??
+                                          textTheme.bodyMedium!.copyWith(color: Colors.black),
+                                    ),
+                            ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
