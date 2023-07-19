@@ -26,16 +26,24 @@ import '../values/typedefs.dart';
 
 class RepliedMessageConfiguration {
   /// Used to give color to vertical bar.
-  final Color? verticalBarColor;
+  final Color? inComingVerticalBarColor;
+
+  final Color? outGoingVerticalBarColor;
 
   /// Used to give background color to replied message widget.
-  final Color? backgroundColor;
+  final Color? inComingBackgroundColor;
+
+  final Color? outGoingBackgroundColor;
 
   /// Used to give text style to reply message.
-  final TextStyle? textStyle;
+  final TextStyle? inComingReplyTextStyle;
+
+  final TextStyle? outGoingReplyTextStyle;
 
   /// Used to give text style to replied message widget's title
-  final TextStyle? replyTitleTextStyle;
+  final TextStyle? inComingReplyTitleTextStyle;
+
+  final TextStyle? outGoingReplyTitleTextStyle;
 
   /// Used to give margin in replied message widget.
   final EdgeInsetsGeometry? margin;
@@ -76,10 +84,14 @@ class RepliedMessageConfiguration {
   final Color? micIconColor;
 
   const RepliedMessageConfiguration({
-    this.verticalBarColor,
-    this.backgroundColor,
-    this.textStyle,
-    this.replyTitleTextStyle,
+    this.inComingVerticalBarColor,
+    this.outGoingVerticalBarColor,
+    this.inComingBackgroundColor,
+    this.outGoingBackgroundColor,
+    this.inComingReplyTitleTextStyle,
+    this.outGoingReplyTitleTextStyle,
+    this.inComingReplyTextStyle,
+    this.outGoingReplyTextStyle,
     this.margin,
     this.padding,
     this.maxWidth,

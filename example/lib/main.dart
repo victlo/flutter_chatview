@@ -238,19 +238,28 @@ class _ChatScreenState extends State<ChatScreen> {
           profileImageUrl: Data.profileImage,
         ),
         repliedMessageConfig: RepliedMessageConfiguration(
-          backgroundColor: theme.repliedMessageColor,
+          inComingBackgroundColor: Colors.orange,
+          outGoingBackgroundColor: Colors.green,
+          inComingVerticalBarColor: Colors.orange,
+          outGoingVerticalBarColor: Colors.green,
           verticalBarWidth: 8,
           repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
             enableHighlightRepliedMsg: true,
             highlightColor: Colors.pinkAccent.shade100,
             highlightScale: 1.1,
           ),
-          textStyle: const TextStyle(
-            color: Colors.white,
+          inComingReplyTextStyle: const TextStyle(
+            color: Colors.grey,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.25,
           ),
-          replyTitleTextStyle: TextStyle(color: theme.repliedTitleTextColor),
+          outGoingReplyTextStyle: const TextStyle(
+            color: Colors.yellow,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.25,
+          ),
+          inComingReplyTitleTextStyle: TextStyle(color: theme.repliedTitleTextColor),
+          outGoingReplyTitleTextStyle: TextStyle(color: theme.repliedTitleTextColor),
         ),
         swipeToReplyConfig: SwipeToReplyConfiguration(
           replyIconColor: theme.swipeToReplyIconColor,

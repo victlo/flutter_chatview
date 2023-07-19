@@ -280,7 +280,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             ),
           Container(
             decoration: BoxDecoration(
-              color: replyMessage.isNotEmpty ? widget.chatBubbleConfig?.outgoingChatBubbleConfig?.color : null,
+              color: replyMessage.isNotEmpty ? _bubbleColor : null,
               /*** The BorderRadius widget  is here ***/
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
@@ -295,6 +295,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                     widget.repliedMessageConfig?.repliedMessageWidgetBuilder != null
                         ? widget.repliedMessageConfig!.repliedMessageWidgetBuilder!(widget.message.replyMessage)
                         : ReplyMessageWidget(
+                            isMessageBySender: isMessageBySender,
                             message: widget.message,
                             repliedMessageConfig: widget.repliedMessageConfig,
                             onTap: () => widget.onReplyTap?.call(widget.message.replyMessage.messageId),
@@ -354,4 +355,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
   }
 
   void _onMaxDuration(int duration) => maxDuration = duration;
+
+  Color? get _bubbleColor => isMessageBySender
+      ? widget.chatBubbleConfig?.outgoingChatBubbleConfig?.color
+      : widget.chatBubbleConfig?.inComingChatBubbleConfig?.color;
 }

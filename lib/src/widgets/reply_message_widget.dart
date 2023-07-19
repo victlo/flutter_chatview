@@ -32,6 +32,7 @@ class ReplyMessageWidget extends StatelessWidget {
   const ReplyMessageWidget({
     Key? key,
     required this.message,
+    required this.isMessageBySender,
     this.repliedMessageConfig,
     this.onTap,
   }) : super(key: key);
@@ -45,6 +46,8 @@ class ReplyMessageWidget extends StatelessWidget {
 
   /// Provides call back when user taps on replied message.
   final VoidCallback? onTap;
+
+  final bool isMessageBySender;
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +73,11 @@ class ReplyMessageWidget extends StatelessWidget {
               top: Radius.circular(10),
               bottom: Radius.circular(3),
             ), //
-            color: repliedMessageConfig?.verticalBarColor ?? Colors.white,
+            color: _verticalBarColor ?? Colors.white,
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: repliedMessageConfig?.backgroundColor,
+              color: _bubbleColor,
               /*** The BorderRadius widget  is here ***/
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -88,8 +91,7 @@ class ReplyMessageWidget extends StatelessWidget {
               children: [
                 Text(
                   "$replyBy",
-                  style: repliedMessageConfig?.replyTitleTextStyle ??
-                      textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
+                  style: _titleTextStyle ?? textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
                 ),
                 const SizedBox(height: 3),
                 Opacity(
@@ -127,7 +129,7 @@ class ReplyMessageWidget extends StatelessWidget {
                               replyMessage: replyMessage,
                               replyBySender: replyBySender,
                             ),
-                            color: repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
+                            color: _bubbleColor ?? Colors.grey.shade500,
                           ),
                           child: message.replyMessage.messageType.isVoice
                               ? Row(
@@ -142,14 +144,13 @@ class ReplyMessageWidget extends StatelessWidget {
                                     if (message.replyMessage.voiceMessageDuration != null)
                                       Text(
                                         message.replyMessage.voiceMessageDuration!.toHHMMSS(),
-                                        style: repliedMessageConfig?.textStyle,
+                                        style: _textStyle,
                                       ),
                                   ],
                                 )
                               : Text(
                                   replyMessage,
-                                  style: repliedMessageConfig?.textStyle ??
-                                      textTheme.bodyMedium!.copyWith(color: Colors.black),
+                                  style: _textStyle ?? textTheme.bodyMedium!.copyWith(color: Colors.black),
                                 ),
                         ),
                 ),
@@ -174,4 +175,18 @@ class ReplyMessageWidget extends StatelessWidget {
               (replyMessage.length < 29
                   ? BorderRadius.circular(replyBorderRadius1)
                   : BorderRadius.circular(replyBorderRadius2));
+
+  Color? get _bubbleColor =>
+      isMessageBySender ? repliedMessageConfig?.outGoingBackgroundColor : repliedMessageConfig?.inComingBackgroundColor;
+
+  TextStyle? get _titleTextStyle => isMessageBySender
+      ? repliedMessageConfig?.outGoingReplyTitleTextStyle
+      : repliedMessageConfig?.inComingReplyTitleTextStyle;
+
+  TextStyle? get _textStyle =>
+      isMessageBySender ? repliedMessageConfig?.outGoingReplyTextStyle : repliedMessageConfig?.inComingReplyTextStyle;
+
+  Color? get _verticalBarColor => isMessageBySender
+      ? repliedMessageConfig?.outGoingVerticalBarColor
+      : repliedMessageConfig?.inComingVerticalBarColor;
 }
