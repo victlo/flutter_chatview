@@ -59,6 +59,10 @@ class MessageReactionConfiguration {
   /// Used for padding to reacted user profile circle.
   final EdgeInsets? profileCirclePadding;
 
+  final Color? messageReceivedColor;
+
+  final Color? messagePendingColor;
+
   const MessageReactionConfiguration({
     this.reactionsBottomSheetConfig,
     this.reactionCountTextStyle,
@@ -72,6 +76,8 @@ class MessageReactionConfiguration {
     this.borderWidth,
     this.profileCircleRadius,
     this.profileCirclePadding,
+    this.messageReceivedColor,
+    this.messagePendingColor,
   });
 }
 

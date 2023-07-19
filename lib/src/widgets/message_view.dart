@@ -166,6 +166,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
           (() {
                 if (message.isAllEmoji) {
                   return Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
                     clipBehavior: Clip.none,
                     children: [
                       Padding(
@@ -203,7 +204,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                   );
                 } else if (widget.message.messageType.isText) {
                   return TextMessageView(
-                    hasReplyMessage : widget.hasReplyMessage,
+                    hasReplyMessage: widget.hasReplyMessage,
                     inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
                     outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
                     isMessageBySender: widget.isMessageBySender,

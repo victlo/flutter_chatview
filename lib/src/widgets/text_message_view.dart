@@ -20,11 +20,12 @@
  * SOFTWARE.
  */
 import 'package:chatview/src/extensions/extensions.dart';
-import 'package:chatview/src/models/models.dart';
 import 'package:flutter/material.dart';
 
+import '../../chatview.dart';
 import '../utils/constants/constants.dart';
 import 'link_preview.dart';
+import 'message_status_widget.dart';
 import 'reaction_widget.dart';
 
 class TextMessageView extends StatelessWidget {
@@ -73,6 +74,7 @@ class TextMessageView extends StatelessWidget {
     final textMessage = message.message;
     final double leftPadding = hasReplyMessage ? 0 : 8;
     return Stack(
+      alignment: AlignmentDirectional.bottomEnd,
       clipBehavior: Clip.none,
       children: [
         Container(
@@ -96,8 +98,8 @@ class TextMessageView extends StatelessWidget {
               : Container(
                   padding: _padding ??
                       (textMessage.isUrl
-                          ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding, 5)
-                          : EdgeInsets.fromLTRB(leftPadding, 8, leftPadding, 8)),
+                          ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding + 25, 5)
+                          : EdgeInsets.fromLTRB(leftPadding, 8, leftPadding + 25, 8)),
                   margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   decoration: BoxDecoration(
                     color: highlightMessage ? highlightColor : _color,
@@ -120,6 +122,13 @@ class TextMessageView extends StatelessWidget {
             reaction: message.reaction,
             messageReactionConfig: messageReactionConfig,
           ),
+        MessageStatusWidget(
+          key: key,
+          reaction: message.reaction,
+          isMessageBySender: isMessageBySender,
+          messageStatus: message.status,
+          messageReactionConfig: messageReactionConfig,
+        )
       ],
     );
   }
