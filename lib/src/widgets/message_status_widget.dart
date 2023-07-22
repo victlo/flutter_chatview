@@ -68,13 +68,13 @@ class _MessageStatusWidgetState extends State<MessageStatusWidget> {
   Widget build(BuildContext context) {
     return widget.isMessageBySender
         ? Positioned(
-            bottom: widget.reaction != null && widget.reaction!.reactions.isNotEmpty ? 25 : 5,
-            right: -5,
+            bottom: widget.reaction != null && widget.reaction!.reactions.isNotEmpty ? 23 : 5,
+            right: -2,
             child: InkWell(
               child: MeasureSize(
                 onSizeChange: (extend) => setState(() => needToExtend = extend),
                 child: Container(
-                  padding: messageReactionConfig?.padding ?? const EdgeInsets.symmetric(vertical: 1.7, horizontal: 6),
+                  padding: messageReactionConfig?.padding ?? const EdgeInsets.all(1),
                   margin: messageReactionConfig?.margin ??
                       const EdgeInsets.only(
                         left: 10,
@@ -89,7 +89,7 @@ class _MessageStatusWidgetState extends State<MessageStatusWidget> {
                     ),
                   ),
                   child: Icon(
-                    size: 16,
+                    size: 12,
                     widget.messageStatus == MessageStatus.read ? Icons.done_all_rounded : Icons.done,
                     color: widget.messageStatus == MessageStatus.read
                         ? (messageReactionConfig?.messageReceivedColor ?? Colors.green)

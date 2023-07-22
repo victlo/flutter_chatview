@@ -25,7 +25,6 @@ import 'package:flutter/material.dart';
 import '../../chatview.dart';
 import '../utils/constants/constants.dart';
 import 'link_preview.dart';
-import 'message_status_widget.dart';
 import 'reaction_widget.dart';
 
 class TextMessageView extends StatelessWidget {
@@ -122,13 +121,6 @@ class TextMessageView extends StatelessWidget {
             reaction: message.reaction,
             messageReactionConfig: messageReactionConfig,
           ),
-        MessageStatusWidget(
-          key: key,
-          reaction: message.reaction,
-          isMessageBySender: isMessageBySender,
-          messageStatus: message.status,
-          messageReactionConfig: messageReactionConfig,
-        )
       ],
     );
   }
@@ -146,10 +138,8 @@ class TextMessageView extends StatelessWidget {
       isMessageBySender ? outgoingChatBubbleConfig?.textStyle : inComingChatBubbleConfig?.textStyle;
 
   BorderRadiusGeometry _borderRadius(String message) => isMessageBySender
-      ? outgoingChatBubbleConfig?.borderRadius ??
-          (message.length < 37 ? BorderRadius.circular(replyBorderRadius1) : BorderRadius.circular(replyBorderRadius2))
-      : inComingChatBubbleConfig?.borderRadius ??
-          (message.length < 29 ? BorderRadius.circular(replyBorderRadius1) : BorderRadius.circular(replyBorderRadius2));
+      ? outgoingChatBubbleConfig?.borderRadius ?? BorderRadius.circular(replyBorderRadius1)
+      : inComingChatBubbleConfig?.borderRadius ?? BorderRadius.circular(replyBorderRadius1);
 
   Color get _color => isMessageBySender
       ? outgoingChatBubbleConfig?.color ?? Colors.purple

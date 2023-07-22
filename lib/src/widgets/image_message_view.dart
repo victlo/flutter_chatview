@@ -26,6 +26,7 @@ import 'package:chatview/src/extensions/extensions.dart';
 import 'package:chatview/src/models/models.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constants/constants.dart';
 import 'reaction_widget.dart';
 import 'share_icon.dart';
 
@@ -38,6 +39,8 @@ class ImageMessageView extends StatelessWidget {
     this.messageReactionConfig,
     this.highlightImage = false,
     this.highlightScale = 1.2,
+    this.inComingChatBubbleConfig,
+    this.outgoingChatBubbleConfig,
   }) : super(key: key);
 
   /// Provides message instance of chat.
@@ -45,6 +48,12 @@ class ImageMessageView extends StatelessWidget {
 
   /// Represents current message is sent by current user.
   final bool isMessageBySender;
+
+  /// Provides configuration of chat bubble appearance from other user of chat.
+  final ChatBubble? inComingChatBubbleConfig;
+
+  /// Provides configuration of chat bubble appearance from current user of chat.
+  final ChatBubble? outgoingChatBubbleConfig;
 
   /// Provides configuration for image message appearance.
   final ImageMessageConfiguration? imageMessageConfig;
@@ -81,17 +90,11 @@ class ImageMessageView extends StatelessWidget {
                 alignment: isMessageBySender ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
-                  margin: imageMessageConfig?.margin ??
-                      EdgeInsets.only(
-                        top: 6,
-                        right: isMessageBySender ? 6 : 0,
-                        left: isMessageBySender ? 0 : 6,
-                        bottom: message.reaction.reactions.isNotEmpty ? 15 : 0,
-                      ),
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   height: imageMessageConfig?.height ?? 200,
                   width: imageMessageConfig?.width ?? 150,
                   child: ClipRRect(
-                    borderRadius: imageMessageConfig?.borderRadius ?? BorderRadius.circular(14),
+                    borderRadius: imageMessageConfig?.borderRadius ?? BorderRadius.circular(replyBorderRadius1),
                     child: (() {
                       if (imageUrl.isUrl) {
                         return Image.network(
@@ -136,4 +139,7 @@ class ImageMessageView extends StatelessWidget {
       ],
     );
   }
+
+  EdgeInsetsGeometry? get _margin =>
+      isMessageBySender ? outgoingChatBubbleConfig?.margin : inComingChatBubbleConfig?.margin;
 }

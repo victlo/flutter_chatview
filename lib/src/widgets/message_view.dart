@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/constants/constants.dart';
 import 'image_message_view.dart';
+import 'message_status_widget.dart';
 import 'reaction_widget.dart';
 import 'text_message_view.dart';
 import 'voice_message_view.dart';
@@ -160,8 +161,8 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
       padding: EdgeInsets.only(
         bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           (() {
                 if (message.isAllEmoji) {
@@ -196,6 +197,8 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                 } else if (widget.message.messageType.isImage) {
                   return ImageMessageView(
                     message: widget.message,
+                    inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
+                    outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
                     isMessageBySender: widget.isMessageBySender,
                     imageMessageConfig: messageConfig?.imageMessageConfig,
                     messageReactionConfig: messageConfig?.messageReactionConfig,
@@ -230,22 +233,12 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                 }
               }()) ??
               const SizedBox(),
-          // ValueListenableBuilder(
-          //   valueListenable: widget.message.statusNotifier,
-          //   builder: (context, value, child) {
-          //     if (widget.isMessageBySender &&
-          //         widget.controller?.initialMessageList.last.id == widget.message.id &&
-          //         widget.message.status == MessageStatus.read) {
-          //       if (ChatViewInheritedWidget.of(context)?.featureActiveConfig.lastSeenAgoBuilderVisibility ?? true) {
-          //         return widget.outgoingChatBubbleConfig?.receiptsWidgetConfig?.lastSeenAgoBuilder
-          //                 ?.call(widget.message, applicationDateFormatter(widget.message.createdAt)) ??
-          //             lastSeenAgoBuilder(widget.message, applicationDateFormatter(widget.message.createdAt));
-          //       }
-          //       return const SizedBox();
-          //     }
-          //     return const SizedBox();
-          //   },
-          // )
+          MessageStatusWidget(
+            reaction: widget.message.reaction,
+            isMessageBySender: widget.isMessageBySender,
+            messageStatus: widget.message.status,
+            messageReactionConfig: messageConfig?.messageReactionConfig,
+          )
         ],
       ),
     );
