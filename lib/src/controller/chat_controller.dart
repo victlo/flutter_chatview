@@ -23,7 +23,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../models/models.dart';
+import '../../chatview.dart';
 
 class ChatController {
   /// Represents initial message list in chat which can be add by user.
@@ -74,14 +74,22 @@ class ChatController {
     messageStreamController.sink.add(initialMessageList);
   }
 
+  void senderMessageRead(String senderId) {
+    for (var e in initialMessageList) {
+      if (e.sendBy == senderId) {
+        e.setStatus = MessageStatus.read;
+      }
+    }
+    messageStreamController.sink.add(initialMessageList);
+  }
+
   /// Function for setting reaction on specific chat bubble
   void setReaction({
     required String emoji,
     required String messageId,
     required String userId,
   }) {
-    final message =
-        initialMessageList.firstWhere((element) => element.id == messageId);
+    final message = initialMessageList.firstWhere((element) => element.id == messageId);
     final reactedUserIds = message.reaction.reactedUserIds;
     final indexOfMessage = initialMessageList.indexOf(message);
     final userIndex = reactedUserIds.indexOf(userId);
@@ -126,6 +134,5 @@ class ChatController {
   }
 
   /// Function for getting ChatUser object from user id
-  ChatUser getUserFromId(String userId) =>
-      chatUsers.firstWhere((element) => element.id == userId);
+  ChatUser getUserFromId(String userId) => chatUsers.firstWhere((element) => element.id == userId);
 }

@@ -69,7 +69,7 @@ class _MessageStatusWidgetState extends State<MessageStatusWidget> {
     return widget.isMessageBySender
         ? Positioned(
             bottom: widget.reaction != null && widget.reaction!.reactions.isNotEmpty ? 23 : 5,
-            right: -2,
+            right: -7,
             child: InkWell(
               child: MeasureSize(
                 onSizeChange: (extend) => setState(() => needToExtend = extend),

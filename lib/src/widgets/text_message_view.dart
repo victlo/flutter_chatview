@@ -78,16 +78,14 @@ class TextMessageView extends StatelessWidget {
       children: [
         Container(
           constraints: BoxConstraints(maxWidth: chatBubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.75),
-          padding:
-              _padding ?? (textMessage.isUrl ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding, 5) : EdgeInsets.all(0)),
           child: textMessage.isUrl
               ? Container(
-                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 0, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   decoration: BoxDecoration(
                     color: highlightMessage ? highlightColor : _color,
                     borderRadius: _borderRadius(textMessage),
                   ),
-                  padding: const EdgeInsets.all(3),
+                  // padding: const EdgeInsets.all(3),
                   width: MediaQuery.of(context).size.width / 2,
                   child: LinkPreview(
                     linkPreviewConfig: _linkPreviewConfig,
@@ -97,9 +95,9 @@ class TextMessageView extends StatelessWidget {
               : Container(
                   padding: _padding ??
                       (textMessage.isUrl
-                          ? EdgeInsets.fromLTRB(leftPadding, 5, leftPadding + 25, 5)
-                          : EdgeInsets.fromLTRB(leftPadding, 8, leftPadding + 25, 8)),
-                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
+                          ? EdgeInsets.fromLTRB(leftPadding, 5, isMessageBySender ? leftPadding + 25 : 5, 5)
+                          : EdgeInsets.fromLTRB(leftPadding, 8, isMessageBySender ? leftPadding + 25 : 8, 8)),
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 0, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   decoration: BoxDecoration(
                     color: highlightMessage ? highlightColor : _color,
                     borderRadius: _borderRadius(textMessage),

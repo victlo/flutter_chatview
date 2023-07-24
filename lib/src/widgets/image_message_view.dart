@@ -90,7 +90,7 @@ class ImageMessageView extends StatelessWidget {
                 alignment: isMessageBySender ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
-                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 6, message.reaction.reactions.isNotEmpty ? 20 : 2),
+                  margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 0, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   height: imageMessageConfig?.height ?? 200,
                   width: imageMessageConfig?.width ?? 150,
                   child: ClipRRect(
