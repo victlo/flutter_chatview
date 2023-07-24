@@ -200,7 +200,7 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                       children: [
                         if (!isRecordingValue) ...[
                           PopupMenuButton<SendPictureEnum>(
-                            // initialValue: selectedMenu,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                             icon: Icon(
                               SendPictureEnum.gallery.icon,
                               size: 24,

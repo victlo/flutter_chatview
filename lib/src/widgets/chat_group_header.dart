@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import 'package:flutter/material.dart';
-import 'package:chatview/src/models/models.dart';
 import 'package:chatview/src/extensions/extensions.dart';
+import 'package:chatview/src/models/models.dart';
+import 'package:flutter/material.dart';
 
 class ChatGroupHeader extends StatelessWidget {
   const ChatGroupHeader({
@@ -39,10 +39,9 @@ class ChatGroupHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: groupSeparatorConfig?.padding ??
-          const EdgeInsets.symmetric(vertical: 12),
+      padding: groupSeparatorConfig?.padding ?? const EdgeInsets.symmetric(vertical: 2),
       child: Text(
-        day.getDay,
+        "${groupSeparatorConfig?.getDateText != null ? day.getDay : groupSeparatorConfig?.getDateText}",
         textAlign: TextAlign.center,
         style: groupSeparatorConfig?.textStyle ?? const TextStyle(fontSize: 17),
       ),

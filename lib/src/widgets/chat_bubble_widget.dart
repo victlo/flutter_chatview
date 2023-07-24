@@ -151,8 +151,6 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
 
   Widget _chatBubbleWidget(ChatUser? messagedUser) {
     return Container(
-      padding: widget.chatBubbleConfig?.padding ?? const EdgeInsets.only(left: 5.0),
-      margin: widget.chatBubbleConfig?.margin ?? const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: isMessageBySender ? MainAxisAlignment.end : MainAxisAlignment.start,

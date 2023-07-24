@@ -95,8 +95,11 @@ class DefaultGroupSeparatorConfiguration {
   /// Used for giving text style of chat separator widget.
   final TextStyle? textStyle;
 
+  final String Function()? getDateText;
+
   const DefaultGroupSeparatorConfiguration({
     this.padding,
     this.textStyle,
+    this.getDateText,
   });
 }
