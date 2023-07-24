@@ -41,7 +41,7 @@ class ChatGroupHeader extends StatelessWidget {
     return Padding(
       padding: groupSeparatorConfig?.padding ?? const EdgeInsets.symmetric(vertical: 2),
       child: Text(
-        "${groupSeparatorConfig?.getDateText != null ? day.getDay : groupSeparatorConfig?.getDateText}",
+        groupSeparatorConfig!.getDateText != null ? groupSeparatorConfig!.getDateText!(day) : day.getDay,
         textAlign: TextAlign.center,
         style: groupSeparatorConfig?.textStyle ?? const TextStyle(fontSize: 17),
       ),
