@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 import 'package:flutter/material.dart';
+
 import '../../chatview.dart';
 
 class ChatBubble {
@@ -52,6 +53,8 @@ class ChatBubble {
   /// time only
   final Function(Message message)? onMessageRead;
 
+  final bool showReceiverName;
+
   const ChatBubble({
     this.color,
     this.borderRadius,
@@ -62,5 +65,6 @@ class ChatBubble {
     this.senderNameTextStyle,
     this.receiptsWidgetConfig,
     this.onMessageRead,
+    this.showReceiverName = false,
   });
 }

@@ -267,7 +267,9 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
       child: Column(
         crossAxisAlignment: isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          if ((chatController?.chatUsers.length ?? 0) > 1 && !isMessageBySender)
+          if (widget.chatBubbleConfig!.inComingChatBubbleConfig!.showReceiverName &&
+              (chatController?.chatUsers.length ?? 0) > 1 &&
+              !isMessageBySender)
             Padding(
               padding:
                   widget.chatBubbleConfig?.inComingChatBubbleConfig?.padding ?? const EdgeInsets.fromLTRB(4, 0, 0, 0),
