@@ -235,9 +235,6 @@ class _ChatViewState extends State<ChatView> with SingleTickerProviderStateMixin
                         );
                       },
                     ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   if (featureActiveConfig.enableTextField)
                     SendMessageWidget(
                       key: _sendMessageKey,

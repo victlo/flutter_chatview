@@ -70,6 +70,8 @@ class ChatBackgroundConfiguration {
   /// message.
   final Curve messageTimeAnimationCurve;
 
+  final double chatViewBottomSpace;
+
   const ChatBackgroundConfiguration({
     this.defaultGroupSeparatorConfig,
     this.backgroundColor,
@@ -85,6 +87,7 @@ class ChatBackgroundConfiguration {
     this.messageTimeIconColor,
     this.loadingWidget,
     this.messageTimeAnimationCurve = Curves.decelerate,
+    this.chatViewBottomSpace = 20,
   });
 }
 
