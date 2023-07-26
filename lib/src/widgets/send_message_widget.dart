@@ -116,11 +116,11 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       bottomPadding4,
                       bottomPadding4,
                       bottomPadding4,
-                      _bottomPadding,
+                      bottomPadding4,
                     ),
                     child: Stack(
                       alignment: Alignment.bottomCenter,
