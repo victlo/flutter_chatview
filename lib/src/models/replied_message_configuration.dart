@@ -83,6 +83,8 @@ class RepliedMessageConfiguration {
   /// Color for microphone icon.
   final Color? micIconColor;
 
+  final String? youText;
+
   const RepliedMessageConfiguration({
     this.inComingVerticalBarColor,
     this.outGoingVerticalBarColor,
@@ -104,5 +106,6 @@ class RepliedMessageConfiguration {
     this.opacity,
     this.repliedMsgAutoScrollConfig = const RepliedMsgAutoScrollConfig(),
     this.micIconColor,
+    this.youText,
   });
 }

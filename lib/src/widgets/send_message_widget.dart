@@ -41,6 +41,7 @@ class SendMessageWidget extends StatefulWidget {
     this.sendMessageBuilder,
     this.onReplyCallback,
     this.onReplyCloseCallback,
+    this.repliedMessageConfig,
   }) : super(key: key);
 
   /// Provides call back when user tap on send button on text field.
@@ -64,6 +65,8 @@ class SendMessageWidget extends StatefulWidget {
   /// Provides controller for accessing few function for running chat.
   final ChatController chatController;
 
+  final RepliedMessageConfiguration? repliedMessageConfig;
+
   @override
   State<SendMessageWidget> createState() => SendMessageWidgetState();
 }
@@ -78,7 +81,9 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
   ChatUser? get repliedUser =>
       replyMessage.replyTo.isNotEmpty ? widget.chatController.getUserFromId(replyMessage.replyTo) : null;
 
-  String get _replyTo => replyMessage.replyTo == currentUser?.id ? PackageStrings.you : repliedUser?.name ?? '';
+  String get _replyTo => replyMessage.replyTo == currentUser?.id
+      ? (widget.repliedMessageConfig?.youText ?? PackageStrings.you)
+      : repliedUser?.name ?? '';
 
   ChatUser? currentUser;
 

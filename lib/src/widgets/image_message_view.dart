@@ -41,6 +41,7 @@ class ImageMessageView extends StatelessWidget {
     this.highlightScale = 1.2,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
+    this.highlightColor,
   }) : super(key: key);
 
   /// Provides message instance of chat.
@@ -67,6 +68,9 @@ class ImageMessageView extends StatelessWidget {
   /// Provides scale of highlighted image when user taps on replied image.
   final double highlightScale;
 
+  /// Allow user to set color of highlighted message.
+  final Color? highlightColor;
+
   String get imageUrl => message.message;
 
   Widget get iconButton => ShareIcon(
@@ -86,13 +90,18 @@ class ImageMessageView extends StatelessWidget {
             GestureDetector(
               onTap: () => imageMessageConfig?.onTap != null ? imageMessageConfig?.onTap!(imageUrl) : null,
               child: Transform.scale(
-                scale: highlightImage ? highlightScale : 1.0,
+                scale: 1.0,
                 alignment: isMessageBySender ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
                   margin: _margin ?? EdgeInsets.fromLTRB(6, 0, 0, message.reaction.reactions.isNotEmpty ? 20 : 2),
                   height: imageMessageConfig?.height ?? 200,
                   width: imageMessageConfig?.width ?? 150,
+                  decoration: BoxDecoration(
+                    color: highlightImage ? (highlightColor ?? Colors.grey) : null,
+                    border: highlightImage ? Border.all(width: 5, color: (highlightColor ?? Colors.grey)) : null,
+                    borderRadius: imageMessageConfig?.borderRadius ?? BorderRadius.circular(replyBorderRadius1),
+                  ),
                   child: ClipRRect(
                     borderRadius: imageMessageConfig?.borderRadius ?? BorderRadius.circular(replyBorderRadius1),
                     child: (() {

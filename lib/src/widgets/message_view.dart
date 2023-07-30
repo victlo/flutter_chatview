@@ -204,6 +204,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                     messageReactionConfig: messageConfig?.messageReactionConfig,
                     highlightImage: widget.shouldHighlight,
                     highlightScale: widget.highlightScale,
+                    highlightColor: widget.highlightColor,
                   );
                 } else if (widget.message.messageType.isText) {
                   return TextMessageView(

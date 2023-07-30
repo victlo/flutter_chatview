@@ -57,7 +57,7 @@ class ReplyMessageWidget extends StatelessWidget {
     final replyMessage = message.replyMessage.message;
     final chatController = ChatViewInheritedWidget.of(context)?.chatController;
     final messagedUser = chatController?.getUserFromId(message.replyMessage.replyTo);
-    final replyBy = replyBySender ? PackageStrings.you : messagedUser?.name;
+    final replyBy = replyBySender ? repliedMessageConfig?.youText ?? PackageStrings.you : messagedUser?.name;
     return GestureDetector(
       onTap: onTap,
       child: Padding(

@@ -280,8 +280,12 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             ),
           Container(
             decoration: BoxDecoration(
-              color: replyMessage.isNotEmpty ? _bubbleColor : null,
-              /*** The BorderRadius widget  is here ***/
+              color: replyMessage.isNotEmpty
+                  ? (widget.shouldHighlight
+                      ? (widget.repliedMessageConfig?.repliedMsgAutoScrollConfig.highlightColor ?? Colors.grey)
+                      : _bubbleColor)
+                  : null,
+
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ), //BorderRadius.all
