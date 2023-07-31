@@ -133,6 +133,11 @@ class ChatController {
     messageStreamController.sink.add(initialMessageList);
   }
 
+  void cleanData() {
+    initialMessageList = [];
+    messageStreamController.sink.add(initialMessageList);
+  }
+
   /// Function for getting ChatUser object from user id
   ChatUser getUserFromId(String userId) => chatUsers.firstWhere((element) => element.id == userId);
 }
