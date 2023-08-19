@@ -175,7 +175,7 @@ class _MessageViewState extends State<MessageView> with SingleTickerProviderStat
                             EdgeInsets.fromLTRB(
                               leftPadding2,
                               4,
-                              leftPadding2,
+                              leftPadding2 + 20,
                               widget.message.reaction.reactions.isNotEmpty ? 14 : 0,
                             ),
                         child: Transform.scale(

@@ -263,7 +263,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
 
   Widget _messagesWidgetColumn(ChatUser? messagedUser) {
     return Padding(
-      padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: replyMessage!.isNotEmpty ? 3.0 : 1.0),
+      padding: EdgeInsets.only(left: 0.0, right: 8.0, bottom: replyMessage!.isNotEmpty ? 3.0 : 1.0),
       child: Column(
         crossAxisAlignment: isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
@@ -279,6 +279,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
               ),
             ),
           Container(
+            margin: replyMessage.isNotEmpty ? EdgeInsets.only(left: 5) : null,
             decoration: BoxDecoration(
               color: replyMessage.isNotEmpty
                   ? (widget.shouldHighlight

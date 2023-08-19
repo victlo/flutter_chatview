@@ -48,6 +48,15 @@ class Data {
       status: MessageStatus.read,
     ),
     Message(
+      id: '11',
+      message: "https://miro.medium.com/max/1000/0*s7of7kWnf9fDg4XM.jpeg",
+      createdAt: DateTime.now(),
+      messageType: MessageType.image,
+      sendBy: '3',
+      reaction: Reaction(reactions: ['\u{2764}'], reactedUserIds: ['2']),
+      status: MessageStatus.read,
+    ),
+    Message(
       id: '7',
       message: "I guess Simform will reply",
       createdAt: DateTime.now(),
@@ -89,6 +98,17 @@ class Data {
     Message(
       id: '10',
       message: "Thank you!!",
+      status: MessageStatus.read,
+      createdAt: DateTime.now(),
+      sendBy: '1',
+      reaction: Reaction(
+        reactions: ['\u{2764}', '\u{2764}', '\u{2764}', '\u{2764}'],
+        reactedUserIds: ['2', '4', '3', '1'],
+      ),
+    ),
+    Message(
+      id: '10',
+      message: "🤩🤩",
       status: MessageStatus.read,
       createdAt: DateTime.now(),
       sendBy: '1',
